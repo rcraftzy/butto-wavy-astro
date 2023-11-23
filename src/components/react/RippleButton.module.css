@@ -13,8 +13,8 @@
   left: var(--mouse-x);
   top: var(--mouse-y);
   right: var(--mouse-x);
-  width: 200%;
-  height: 200%;
+  width: 400%;
+  height: 400%;
   background-color: #0016ec;
   border-radius: 50%;
   transform: translate(-50%, -50%) scale(0);
