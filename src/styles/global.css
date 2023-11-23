@@ -1,0 +1,61 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #222;
+}
+
+.wavy-none {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.wavy-none::before {
+  content: "aaaaaaaaaaaaaa";
+  position: absolute;
+  z-index: 1;
+  font-size: 5rem;
+  color: transparent;
+  top: -80px;
+  left: 0px;
+  text-decoration-color: #000;
+  text-decoration-line: underline;
+}
+
+.wavy {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.wavy svg {
+  position: absolute;
+  stroke-width: 5;
+  top: 5px;
+  left: 0px;
+  z-index: 1;
+  animation: animate 3s linear infinite;
+}
+/* 
+.wavy::before {
+  content: "";
+  color: transparent;
+  left: 0px;
+  background: white;
+  background-size: cover;
+  animation: animate 2s linear infinite;
+}
+ */
+@keyframes animate {
+  0% {
+    transform: translateX(-44px);
+  }
+  100% {
+    transform: translateX(-88px);
+  }
+}
