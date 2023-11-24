@@ -13,17 +13,12 @@ body {
   overflow: hidden;
   z-index: 1;
 }
-
-.wavy-none::before {
-  content: "aaaaaaaaaaaaaa";
+.wavy-none svg {
   position: absolute;
-  z-index: 1;
-  font-size: 5rem;
-  color: transparent;
-  top: -80px;
+  stroke-width: 2;
   left: 0px;
-  text-decoration-color: #000;
-  text-decoration-line: underline;
+  top: 5px;
+  z-index: 1;
 }
 
 .wavy {
