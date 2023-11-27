@@ -15,7 +15,7 @@ body {
 }
 .wavy-none svg {
   position: absolute;
-  stroke-width: 2;
+  stroke-width: 1;
   left: 0px;
   top: 5px;
   z-index: 1;
@@ -30,8 +30,8 @@ body {
 }
 .wavy svg {
   position: absolute;
-  stroke-width: 5;
-  top: 5px;
+  stroke-width: 2;
+  top: 10px;
   left: 0px;
   z-index: 1;
   animation: animate 3s linear infinite;
@@ -48,9 +48,9 @@ body {
  */
 @keyframes animate {
   0% {
-    transform: translateX(-44px);
+    transform: translateX(-4px);
   }
   100% {
-    transform: translateX(-88px);
+    transform: translateX(-34px);
   }
 }
