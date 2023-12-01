@@ -1,3 +1,4 @@
+/* 
 body {
   display: flex;
   justify-content: center;
@@ -36,7 +37,6 @@ body {
   z-index: 1;
   animation: animate 3s linear infinite;
 }
-/* 
 .wavy::before {
   content: "";
   color: transparent;
@@ -45,7 +45,6 @@ body {
   background-size: cover;
   animation: animate 2s linear infinite;
 }
- */
 @keyframes animate {
   0% {
     transform: translateX(-4px);
@@ -53,4 +52,53 @@ body {
   100% {
     transform: translateX(-34px);
   }
+}
+
+ */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #222;
+  z-index: 0;
+}
+
+canvas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6px;
+  height: 6px;
+  cursor: pointer;
+  z-index: 10;
+}
+.button {
+  background-color: white;
+  border-radius: 50%;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.circle {
+  position: absolute;
+  z-index: -10;
+  bottom: var(--mouse-y);
+  left: var(--mouse-x);
+  top: var(--mouse-y);
+  right: var(--mouse-x);
+  width: 400%;
+  height: 400%;
+  background-color: #0016ec;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.button:hover .circle {
+  transform: translate(-50%, -50%) scale(1);
+  background-color: #0016ec;
+  border-color: #0016ec;
 }
