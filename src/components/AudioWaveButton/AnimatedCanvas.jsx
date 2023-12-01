@@ -110,9 +110,21 @@ class AnimatedCanvas extends React.Component {
     console.log(this.state.opt.power);
   };
 
+  handleMouseOver = (e) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left; // Posición x del mouse dentro del botón
+    const y = e.clientY - rect.top; // Posición y del mouse dentro del botón
+
+    button.style.setProperty("--mouse-x", `${x}px`);
+    button.style.setProperty("--mouse-y", `${y}px`);
+  };
+
   render() {
     return (
-      <div>
+      <div
+        onMouseOver={this.handleMouseOver}
+      >
         <div className="button">
           <canvas
             ref={this.canvasRef}
