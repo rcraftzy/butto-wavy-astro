@@ -1,20 +1,21 @@
-import React, { useEffect, useRef } from 'react';
-import { TweenMax, Power2, Power3 } from 'gsap';
+import React from "react";
+import { Power2, Power3, TweenMax } from "gsap";
 
 class AnimatedCanvas extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
+    this.audioRef = React.createRef();
     this.state = {
       opt: {
         width: 0,
         height: 0,
         midY: 0,
         points: 80,
-        stretch: 5.57,
-        sinHeight: 4,
+        stretch: 10,
+        sinHeight: 0,
         speed: -0.35,
-        strokeColor: 'black',
+        strokeColor: "black",
         strokeWidth: 2,
         power: true,
       },
@@ -25,7 +26,7 @@ class AnimatedCanvas extends React.Component {
   componentDidMount() {
     const c = this.canvasRef.current;
     const { opt } = this.state;
-    const ctx = c.getContext('2d');
+    const ctx = c.getContext("2d");
 
     opt.width = c.offsetWidth;
     opt.height = c.offsetHeight;
@@ -39,8 +40,8 @@ class AnimatedCanvas extends React.Component {
     ctx.scale(2, 2);
     ctx.strokeStyle = opt.strokeColor;
     ctx.lineWidth = opt.strokeWidth;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
     this.animate();
   }
@@ -48,7 +49,7 @@ class AnimatedCanvas extends React.Component {
   animate = () => {
     const { opt, time } = this.state;
     const c = this.canvasRef.current;
-    const ctx = c.getContext('2d');
+    const ctx = c.getContext("2d");
 
     window.requestAnimationFrame(this.animate);
     ctx.clearRect(0, 0, opt.width, opt.height);
@@ -65,8 +66,7 @@ class AnimatedCanvas extends React.Component {
       }
 
       const x = (opt.width / opt.points) * i;
-      const y =
-        opt.midY +
+      const y = opt.midY +
         (Math.sin((time * opt.speed) + (i / opt.stretch)) * opt.sinHeight) *
           increment;
       ctx.lineTo(x, y);
@@ -78,6 +78,7 @@ class AnimatedCanvas extends React.Component {
   handleCanvasClick = () => {
     const { opt } = this.state;
     const newPower = !opt.power;
+    const audio = this.audioRef.current;
 
     this.setState(
       (prevState) => ({
@@ -87,21 +88,23 @@ class AnimatedCanvas extends React.Component {
         const { opt } = this.state;
 
         if (opt.power) {
-          TweenMax.to(opt, 1.4, {
-            sinHeight: 4,
-            stretch: 5.57,
-            ease: Power2.easeInOut,
-            onUpdate: () => this.forceUpdate(), // Force re-render during the animation
-          });
-        } else {
           TweenMax.to(opt, 1, {
             sinHeight: 0,
             stretch: 10,
             ease: Power3.easeOut,
             onUpdate: () => this.forceUpdate(), // Force re-render during the animation
           });
+          audio.pause();
+        } else {
+          TweenMax.to(opt, 1.4, {
+            sinHeight: 4,
+            stretch: 5.57,
+            ease: Power2.easeInOut,
+            onUpdate: () => this.forceUpdate(), // Force re-render during the animation
+          });
+          audio.play();
         }
-      }
+      },
     );
 
     console.log(this.state.opt.power);
@@ -109,13 +112,21 @@ class AnimatedCanvas extends React.Component {
 
   render() {
     return (
-      <div className="button">
-        <canvas
-          ref={this.canvasRef}
-          onClick={this.handleCanvasClick}
-          style={{ padding: '12px', margin: '0px' }}
-        />
-        <div className="circle"/>
+      <div>
+        <div className="button">
+          <canvas
+            ref={this.canvasRef}
+            onClick={this.handleCanvasClick}
+            style={{ padding: "12px", margin: "0px" }}
+          />
+          <div className="circle" />
+        </div>
+        <audio ref={this.audioRef}>
+          <source
+            src="/Cartoon.mp3"
+            type="audio/mp3"
+          />
+        </audio>
       </div>
     );
   }
